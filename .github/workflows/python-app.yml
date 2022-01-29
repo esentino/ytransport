@@ -19,7 +19,7 @@ jobs:
     - name: Set up Python 3.10
       uses: actions/setup-python@v2
       with:
-        python-version: "3.10"
+        python-version: "3.9"
     - name: Python Poetry Action
       # You may pin to the exact commit or the version.
       # uses: abatilo/actions-poetry@f982f3200f413c3a4d6b8f7219f74b772d77c14d
