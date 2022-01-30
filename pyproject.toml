@@ -12,6 +12,8 @@ aiohttp = "^3.8.1"
 asyncpg = "^0.25.0"
 aiohttp-jinja2 = "^1.5"
 environs = "^9.4.0"
+aiohttp-session = {extras = ["secure"], version = "^2.10.0"}
+PyNaCl = "^1.5.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
