@@ -10,6 +10,8 @@ tortoise-orm = "^0.18.1"
 aerich = "^0.6.2"
 aiohttp = "^3.8.1"
 asyncpg = "^0.25.0"
+aiohttp-jinja2 = "^1.5"
+environs = "^9.4.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"

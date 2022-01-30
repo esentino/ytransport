@@ -1,3 +1,7 @@
+import pathlib
+
+BASE_DIR = pathlib.Path(__file__).parent.parent
+
 TORTOISE_ORM = {
     "connections": {
         # Dict format for connection
