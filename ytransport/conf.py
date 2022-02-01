@@ -17,3 +17,5 @@ TORTOISE_ORM = {
     },
 }
 SESSION_SECRET_KEY = b"xa7aeN3fohcheeka5aiceez7eeGee7ae"
+
+DEBUG = True
