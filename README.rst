@@ -11,4 +11,10 @@ ytransport
 
 .. image:: https://img.shields.io/badge/isort-5.10.1-blue
 
+Big Picture
+-----------
 .. image:: http://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/esentino/ytransport/main/docs/big_picture.iuml
+
+Database
+--------
+.. image:: docs/db_er.png
