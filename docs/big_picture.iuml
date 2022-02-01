@@ -1,0 +1,34 @@
+@startuml abc
+left to right direction
+actor Guest as G
+actor Player as P
+actor System as S
+
+package Application {
+    usecase "Login" as L
+    usecase "Register" as R
+}
+package Truck{
+    usecase "Buy Truck" as BT
+    usecase "Use Truck \non \nTransport" as UTT
+}
+package Transport {
+    usecase "Take Transport" as TT
+    usecase "Show available\n Transport" as SAT
+    usecase "Show owned\n Transport" as SOT
+    usecase "Reward player \nfor \nfinished transport" as RPFT
+    usecase "Create new transport" as CNT
+}
+G-->L
+G-->R
+L-->P
+P-->BT
+P-->TT
+P-->UTT
+P-->SAT
+P-->SOT
+S-->RPFT
+RPFT --> P
+S-->CNT
+
+@enduml
