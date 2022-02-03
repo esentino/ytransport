@@ -13,7 +13,7 @@ class NotEnoughCashForBuyTruck(Exception):
         return f"Not enough cash for buy truck ({self._price}$) missing {self._price-self._money}$."
 
 
-@atomic
+@atomic("default")
 async def buy_truck(truck: Truck, player: Player) -> PlayerTruck:
     await player.refresh_from_db()
 
@@ -23,4 +23,4 @@ async def buy_truck(truck: Truck, player: Player) -> PlayerTruck:
     player.money = F("money") - truck.price
     await player.save()
 
-    return await PlayerTruck.create(truck=Truck, player=Player, load=0)
+    return await PlayerTruck.create(truck=truck, player=player, load=0)
