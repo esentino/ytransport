@@ -45,6 +45,6 @@ jobs:
         postgresql password: dywan123
     - name: Test with pytest
       env:
-        TORTOISE_TEST_DB: postgres://ytransport:ytransport@127.0.0.1:5432/test_{}
+        TORTOISE_TEST_DB: postgres://ytransport:dywan123@127.0.0.1:5432/test_{}
       run: |
         poetry run pytest
