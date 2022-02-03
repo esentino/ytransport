@@ -31,10 +31,11 @@ jobs:
       run: poetry install
     - name: Lint with flake8
       run: |
+        poetry use 3.9
         # stop the build if there are Python syntax errors or undefined names
-        poetry run flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-        poetry run flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Setup PostgreSQL
       uses: Harmon758/postgresql-action@v1.0.0
       with:
@@ -47,4 +48,4 @@ jobs:
       env:
         TORTOISE_TEST_DB: postgres://ytransport:dywan123@127.0.0.1:5432/test_{}
       run: |
-        poetry run pytest
+        pytest -vvv
