@@ -33,7 +33,7 @@ class Transport(models.Model):
 
 
 class Player(models.Model):
-    username = fields.CharField(max_length=255)
+    username = fields.CharField(max_length=255, unique=True)
     password = fields.CharField(max_length=255)
     money = fields.IntField(default=STARTING_MONEY)
     town = fields.ForeignKeyField(model_name="ytransport.Town", on_delete=fields.CASCADE, related_name="players")
