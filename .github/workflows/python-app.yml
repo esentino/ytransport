@@ -48,4 +48,4 @@ jobs:
       env:
         TORTOISE_TEST_DB: postgres://ytransport:dywan123@127.0.0.1:5432/test_{}
       run: |
-        pytest -vvv
+        poetry run pytest -vvv
