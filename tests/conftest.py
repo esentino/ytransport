@@ -1,7 +1,6 @@
 import os
 
 import pytest
-from _pytest.fixtures import FixtureRequest
 from tortoise import Tortoise, current_transaction_map, generate_config
 from tortoise.contrib.test import finalizer, initializer
 
