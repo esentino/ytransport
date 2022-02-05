@@ -1,3 +1,4 @@
+from nacl import pwhash
 from tortoise.expressions import F
 from tortoise.transactions import atomic
 
@@ -15,7 +16,7 @@ class NotEnoughCashForBuyTruck(Exception):
         return f"Not enough cash for buy truck ({self._price}$) missing {self._price-self._money}$."
 
 
-class UserExists(Exception):
+class UserExistsError(Exception):
     def __init__(self, username: str):
         self._username = username
 
@@ -53,18 +54,22 @@ async def meet_password_criteria(password: str) -> bool:
     return True
 
 
-async def generate_password(password):
-    pass
+async def generate_password(password: str) -> str:
+    return pwhash.str(password.encode()).decode()
+
+
+async def verify_password(hashed: str, password: str) -> bool:
+    return pwhash.verify(hashed.encode(), password.encode())
 
 
 @atomic("default")
 async def register(username: str, password: str, town: Town) -> Player:
     if await Player.exists(username=username):
-        raise UserExists(username)
+        raise UserExistsError(username)
 
     if not await meet_password_criteria(password):
         raise WeakPasswordError()
 
     hashed_password = await generate_password(password)
 
-    return await Player.create(username=username, password=hashed_password, town=Town)
+    return await Player.create(username=username, password=hashed_password, town=town)

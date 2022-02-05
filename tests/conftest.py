@@ -4,6 +4,8 @@ import pytest
 from tortoise import Tortoise, current_transaction_map, generate_config
 from tortoise.contrib.test import finalizer, initializer
 
+from ytransport.models import Town
+
 
 @pytest.fixture(autouse=True)
 def init_dd():
@@ -13,6 +15,11 @@ def init_dd():
     current_transaction_map["default"] = current_transaction_map["ytransport"]
     yield
     finalizer()
+
+
+@pytest.fixture
+async def center_town():
+    return await Town.create(name="town", latitude=0.0, longitude=0.0)
 
 
 @pytest.fixture

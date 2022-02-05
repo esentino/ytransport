@@ -37,6 +37,7 @@ class Player(models.Model):
     password = fields.CharField(max_length=255)
     money: int = fields.IntField(default=STARTING_MONEY)
     town = fields.ForeignKeyField(model_name="ytransport.Town", on_delete=fields.CASCADE, related_name="players")
+    trucks: fields.ReverseRelation
 
 
 class PlayerTruck(models.Model):
