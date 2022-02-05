@@ -51,4 +51,4 @@ jobs:
         TORTOISE_TEST_DB: postgres://ytransport:dywan123@127.0.0.1:5432/test_{}
       run: |
         poetry run echo $TORTOISE_TEST_DB
-        poetry run pytest -vvv -l --log-level=DEBUG
+        poetry run pytest --cov=. --cov-report=term-missing -vvv -l --log-level=DEBUG
