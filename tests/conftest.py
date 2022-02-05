@@ -17,7 +17,7 @@ def init_dd():
 
 @pytest.fixture
 async def app_test_app(aiohttp_client):
-    from main import make_app
+    from ytransport.main import make_app
 
     db_url = os.environ.get("TORTOISE_TEST_DB", "sqlite://:memory:")
     config = generate_config(db_url=db_url, app_modules={"models": ["models"]})

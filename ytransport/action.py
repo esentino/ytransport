@@ -1,7 +1,7 @@
 from tortoise.expressions import F
 from tortoise.transactions import atomic
 
-from ytransport.models import Player, PlayerTruck, Truck, Town
+from .models import Player, PlayerTruck, Town, Truck
 
 MINIMUM_PASSWORD_LENGTH = 8
 
@@ -40,7 +40,7 @@ async def buy_truck(truck: Truck, player: Player) -> PlayerTruck:
     return await PlayerTruck.create(truck=truck, player=player, load=0)
 
 
-async def meet_password_criteria(password: str) ->bool:
+async def meet_password_criteria(password: str) -> bool:
     if len(password) < MINIMUM_PASSWORD_LENGTH:
         return False
 
@@ -50,13 +50,15 @@ async def meet_password_criteria(password: str) ->bool:
     if password.upper() == password:
         return False
 
+    return True
+
 
 async def generate_password(password):
     pass
 
 
 @atomic("default")
-async def register(username:str, password:str, town:Town) -> Player:
+async def register(username: str, password: str, town: Town) -> Player:
     if await Player.exists(username=username):
         raise UserExists(username)
 
@@ -64,3 +66,5 @@ async def register(username:str, password:str, town:Town) -> Player:
         raise WeakPasswordError()
 
     hashed_password = await generate_password(password)
+
+    return await Player.create(username=username, password=hashed_password, town=Town)

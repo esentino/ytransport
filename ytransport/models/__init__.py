@@ -5,7 +5,7 @@ STARTING_MONEY = 50000
 
 class Truck(models.Model):
     name = fields.CharField(max_length=255)
-    price = fields.IntField()
+    price: int = fields.IntField()
     speed = fields.IntField()
     max_load = fields.IntField()
 
@@ -35,7 +35,7 @@ class Transport(models.Model):
 class Player(models.Model):
     username = fields.CharField(max_length=255, unique=True)
     password = fields.CharField(max_length=255)
-    money = fields.IntField(default=STARTING_MONEY)
+    money: int = fields.IntField(default=STARTING_MONEY)
     town = fields.ForeignKeyField(model_name="ytransport.Town", on_delete=fields.CASCADE, related_name="players")
 
 
