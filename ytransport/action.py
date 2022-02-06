@@ -1,4 +1,7 @@
+from typing import Optional
+
 from nacl import pwhash
+from nacl.exceptions import InvalidkeyError
 from tortoise.expressions import F
 from tortoise.transactions import atomic
 
@@ -59,7 +62,18 @@ async def generate_password(password: str) -> str:
 
 
 async def verify_password(hashed: str, password: str) -> bool:
-    return pwhash.verify(hashed.encode(), password.encode())
+    # Verify return true on match password, raise InvalidkeyError on failed
+    try:
+        return pwhash.verify(hashed.encode(), password.encode())
+    except InvalidkeyError:
+        return False
+
+
+async def login(username: str, password: str) -> Optional[Player]:
+    player = await Player.filter(username=username).first()
+    if player and await verify_password(player.password, password):
+        return player
+    return None
 
 
 @atomic("default")

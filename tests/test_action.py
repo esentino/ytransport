@@ -7,6 +7,8 @@ from ytransport.action import (
     UserExistsError,
     WeakPasswordError,
     buy_truck,
+    generate_password,
+    login,
     register,
     verify_password,
 )
@@ -65,3 +67,29 @@ async def test_register_success(center_town: Coroutine[None, None, Town]):
     assert player.username == username
     assert player.town == town
     assert await verify_password(player.password, password)
+
+
+@pytest.mark.asyncio
+async def test_login_with_valid_password(center_town: Coroutine[None, None, Town]):
+    town = await center_town
+    password = "DyWaN123"
+    hashed_password = await generate_password(password)
+    username = "seba"
+    player = await Player.create(username=username, password=hashed_password, town=town)
+
+    player_to_log_in = await login(username, password)
+
+    assert player == player_to_log_in
+
+
+@pytest.mark.asyncio
+async def test_login_with_invalid_password_should_return_none(center_town: Coroutine[None, None, Town]):
+    town = await center_town
+    password = "DyWaN123"
+    hashed_password = await generate_password(password)
+    username = "seba"
+    await Player.create(username=username, password=hashed_password, town=town)
+
+    player_to_log_in = await login(username, "very_but_password")
+
+    assert player_to_log_in is None
