@@ -5,9 +5,8 @@ from nacl.exceptions import InvalidkeyError
 from tortoise.expressions import F
 from tortoise.transactions import atomic
 
+from .conf import MINIMUM_PASSWORD_LENGTH
 from .models import Player, PlayerTruck, Town, Truck
-
-MINIMUM_PASSWORD_LENGTH = 8
 
 
 class NotEnoughCashForBuyTruck(Exception):
