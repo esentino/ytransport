@@ -41,14 +41,8 @@ class RegisterView(View):
         data = await self.request.post()
         towns = await Town.all()
         result_data = {"towns": towns}
-        if (
-            "username" in data
-            and "password" in data
-            and "passwordbis" in data
-            and "town" in data
-            and data["password"] == data["passwordbis"]
-            and data["town"]
-        ):
+        all_data_in_post = "username" in data and "password" in data and "passwordbis" in data and "town" in data
+        if all_data_in_post and data["password"] == data["passwordbis"]:
             try:
                 start_town = await Town.get_or_none(id=data["town"])
                 if start_town:
