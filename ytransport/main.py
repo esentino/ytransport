@@ -15,8 +15,8 @@ def make_app() -> web.Application:
     aiohttp_jinja2.setup(app, loader=jinja2.FileSystemLoader(str(BASE_DIR / "ytransport" / "templates")))
     register_tortoise(app, TORTOISE_ORM)
     app.router.add_get("/", index)
-    app.router.add_view("/login", LoginView)
-    app.router.add_view("/register", RegisterView)
+    app.router.add_view("/login", LoginView, name="login")
+    app.router.add_view("/register", RegisterView, name="register")
     if DEBUG:
         for resource in app.router.resources():
             print(resource)
